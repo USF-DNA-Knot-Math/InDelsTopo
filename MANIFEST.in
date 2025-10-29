@@ -1,0 +1,15 @@
+# Include the README and license
+include README.md
+include LICENSE
+
+# Include the tutorial notebooks
+recursive-include tutorials *.ipynb
+
+# Include package metadata
+include setup.py
+include pyproject.toml
+include setup.cfg
+
+# Exclude Python cache files
+exclude *.pyc
+prune __pycache__

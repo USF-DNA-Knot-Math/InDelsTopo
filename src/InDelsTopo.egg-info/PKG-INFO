@@ -1,0 +1,52 @@
+Metadata-Version: 2.4
+Name: InDelsTopo
+Version: 0.1.0
+Summary: A Python package to analyze topological properties of sets of words when their main source of variation are insertions and deletions, using the Insertion Chain Complex framework.
+Author-email: Francisco Martinez-Figueroa <fmartinezfigueroa@usf.com>
+License: MIT
+Project-URL: Homepage, https://github.com/USF-DNA-Knot-Math/InDelsTopo
+Project-URL: Repository, https://github.com/USF-DNA-Knot-Math/InDelsTopo
+Project-URL: Issues, https://github.com/USF-DNA-Knot-Math/InDelsTopo/issues
+Keywords: word combinatorics,topology,homology,chain complexes,topology,mathematics,biomathematics,DNA sequence analysis
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy<2.0,>=1.20
+Requires-Dist: networkx>=3.0
+Requires-Dist: matplotlib>=3.0
+Requires-Dist: sympy>=1.9
+Requires-Dist: scipy>=1.12
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: pylint; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Dynamic: license-file
+
+# InDelsTopo: Tutorial Notebook
+
+## Introduction
+
+**InDelsTopo** implements the **Insertion Chain Complex** framework (Jonoska, Martinez-Figueroa, and Saito, [arXiv:2509.12607](https://arxiv.org/abs/2509.12607)), originally developed to analyze variation in collections of DNA sequences following double-strand break repair. The package enables general analysis of word sets where insertions and deletions are the primary source of variation, using topological tools such as persistent homology and Euler characteristic curves. This tutorial focuses on the core usage of the package; applications to biological data are available in the project’s GitHub repository.
+
+## Installation
+
+```bash
+pip install InDelsTopo
+#pip install sympy numpy matplotlib networkx scipy
+```
+
+For full functionality (e.g., homology over ℤ), install [SageMath](https://www.sagemath.org/) and run this notebook in a SageMath kernel.
+
+
+## Tutorial 
+
+Find the tutorial in tutorials/
+
+

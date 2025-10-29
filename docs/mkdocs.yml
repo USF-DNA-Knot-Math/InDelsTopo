@@ -1,0 +1,14 @@
+site_name: InDelsTopo
+site_url: https://github.com/yourusername/InDelsTopo
+theme:
+  name: material
+
+plugins:
+  - search
+  - mkdocstrings
+
+nav:
+  - Home: index.md
+  - Tutorial: tutorial.md
+  - API:
+      - InDelsTopo: reference.md
