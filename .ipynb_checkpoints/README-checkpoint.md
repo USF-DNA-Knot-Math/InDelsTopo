@@ -113,7 +113,7 @@ Jonoska, N., Martinez-Figueroa, F., & Saito, M. (2025). *The Insertion Chain Com
 ## Contributing
 We welcome contributions to **InDelsTopo**! You can help by:
 
-- Reporting bugs or issues via the [GitHub Issues](https://github.com/your-repo/InDelsTopo/issues) page.
+- Reporting bugs or issues via the [GitHub Issues](https://github.com/USF-DNA-Knot-Math/InDelsTopo/issues) page.
 - Submitting pull requests with improvements, bug fixes, or new examples.
 - Suggesting new features or documentation improvements.
 

@@ -1,7 +1,7 @@
 site_name: InDelsTopo
 site_url: https://github.com/USF-DNA-Knot-Math/InDelsTopo/
-theme:
-  name: material
+theme: readthedocs
+
 
 plugins:
   - search
@@ -9,6 +9,4 @@ plugins:
 
 nav:
   - Home: index.md
-  - Tutorial: tutorial.md
-  - API:
-      - InDelsTopo: reference.md
+  - InDelsTopo: reference.md
