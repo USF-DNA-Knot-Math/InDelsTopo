@@ -1,0 +1,12 @@
+site_name: InDelsTopo
+site_url: https://github.com/USF-DNA-Knot-Math/InDelsTopo/
+theme: readthedocs
+
+
+plugins:
+  - search
+  - mkdocstrings
+
+nav:
+  - Home: index.md
+  - InDelsTopo: reference.md
