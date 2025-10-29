@@ -13,7 +13,7 @@ The package enables general analysis of word sets where **insertions and deletio
 
 - Define and generate Insertion Chain Complexes and Filtrations based on sets of words, over any finite alphabet. 
 - Support for computing homology using either:
-  - Pure Python/NumPy backend (with coefficients in $\mathbb{Z}/2\mathbb{Z}$). 
+  - Pure Python/NumPy backend (with coefficients in $\mathbb{Z}_2$). 
   - [SageMath](https://www.sagemath.org/) for symbolic computation with coefficients in any supported ring (including $\mathbb{Z}$).
 - Computation of persistent homology barcodes for Filtrations.
 - Computation of Euler Characteristic Curves for Filtrations.
@@ -33,7 +33,6 @@ The package enables general analysis of word sets where **insertions and deletio
 **Optional (for extended functionality):**
 - [SageMath](https://www.sagemath.org/) (for symbolic homology computation)
 
---
 
 ## Installation
 
@@ -71,32 +70,31 @@ K.get_graph()
 | **Complex** | `compute_d_skeleton(W, max_dim=d, verbose=False)` | Construct the d-skeleton of the insertion chain complex from a set of words `W`. |
 |  | `add_blocks(list_blocks, already_blocks=False)` | Add new blocks to the complex. If `already_blocks=True`, the elements are `Block` objects. |
 |  | `remove_blocks(list_blocks)` | Remove specified blocks and all super-faces containing them. |
-|  | `get_graph(height=None, ax=None)` | Visualize the complex. Optional `height` filters subcomplex; `ax` allows plotting in an existing matplotlib axes. |
+|  | `get_graph()` | Visualize the complex. |
 |  | `dim` | Maximum dimension of the complex. |
 |  | `euler_characteristic` | Euler characteristic of the complex. |
-|  | `get_betti_numbers_z2()` | Compute Betti numbers with coefficients in ℤ₂. |
+|  | `get_betti_numbers_z2()` | Compute Betti numbers with coefficients in $\mathbb{Z}_2$. |
 |  | `get_maximal_blocks()` | Returns dictionary of maximal blocks by dimension. |
 | **Filtration** | `compute_d_skeleton(W, heights=None, max_dim=d)` | Construct a filtration using word heights. |
-|  | `add_blocks(list_blocks, list_heights=None, already_blocks=False, update_values=False)` | Add blocks to the filtration, optionally updating heights of faces. |
+|  | `add_blocks(list_blocks, list_heights)` | Add blocks to the filtration, optionally updating heights of faces. |
 |  | `remove_blocks(list_blocks)` | Remove blocks and all higher-dimensional blocks containing them. |
 |  | `get_complex(height=None, max_dim=d)` | Return a subcomplex at a given height. |
 |  | `filtration_dict` | Dictionary of blocks by dimension and their heights. |
 |  | `dim` | Maximum dimension of the filtration. |
 |  | `filtration_values` | Sorted list of all heights in the filtration. |
-| **Block** | Constructor: `Block(string, prod_symbol=None)` | Create a block from a string representation of vertices. |
-|  | `get_all_faces(include_self=True)` | Returns all subfaces of the block. |
+| **Block** | Constructor: `Block(string)` | Create a block from a string representation. |
+|  | `get_all_faces()` | Returns all subfaces of the block. |
 |  | `get_all_facets()` | Returns codimension-1 faces. |
 |  | `get_upper_facets()` / `get_lower_facets()` | Returns only upper or lower facets. |
-|  | `get_all_vertices(as_words=False)` | Returns all vertices; as blocks if `as_words=True`. |
-|  | `get_face(indices_plus=[], indices_minus=[])` | Returns a specific face by upper/lower indices. |
-|  | `get_vertex(indices=[])` | Returns a specific vertex by index list. |
-| **Chain** | Constructor: `Chain('2B1+3B2-...')` | Linear combination of blocks with integer coefficients. |
+|  | `get_all_vertices()` | Returns all vertices. |
+|  | `get_face(indices_plus, indices_minus)` | Returns a specific face by upper/lower indices. |
+|  | `get_vertex(indices)` | Returns a specific vertex by index list. |
+| **Chain** | Constructor: `Chain(string)` | Linear combination of blocks with integer coefficients. |
 |  | Arithmetic: `+`, `-`, `*` | Combine chains and multiply by integers. |
 |  | `get_blocks()` | Returns list of blocks in the chain. |
 |  | `get_dict_blocks()` | Returns dictionary of blocks with their coefficients. |
 |  | `boundary()` | Compute boundary of the chain. |
 
---
 
 ## Tutorial
 The full tutorial notebook is available in `tutorials/`.
