@@ -100,7 +100,3 @@ See the [LICENSE](LICENSE.txt) file for details.
 This project was developed at the **University of South Florida**, in collaboration with  
 **Prof. Natasha Jonoska** and **Prof. Masahico Saito** (University of South Florida),  
 and insights from experimental data provided by **Prof. Francesca Storici’s lab** (Georgia Tech).
-
----
-*© 2025 University of South Florida*
-
