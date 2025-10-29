@@ -97,10 +97,11 @@ K.get_graph()
 
 ## Documentation
 
-Full documenation can be found at [https://usf-dna-knot-math.github.io/InDelsTopo/]
+Full documenation can be found at [usf-dna-knot-math.github.io/InDelsTopo/](https://usf-dna-knot-math.github.io/InDelsTopo/)
 
 ## Tutorial
-The full Jupyter Notebook tutorial is available in [tutorials/InDelsTopo_Tutorial.ipynb]
+The full Jupyter Notebook tutorial is available in [tutorials/InDelsTopo_Tutorial.ipynb](tutorials/InDelsTopo_Tutorial.ipynb).
+
 It covers:
 1. Complexes: constructing, inspecting, and visualizing.
 2. Filtrations: heights, sublevel sets, and persistent homology.
