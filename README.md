@@ -95,9 +95,12 @@ K.get_graph()
 |  | `get_dict_blocks()` | Returns dictionary of blocks with their coefficients. |
 |  | `boundary()` | Compute boundary of the chain. |
 
+## Documentation
+
+Full documenation can be found at [https://usf-dna-knot-math.github.io/InDelsTopo/]
 
 ## Tutorial
-The full tutorial notebook is available in `tutorials/`.
+The full Jupyter Notebook tutorial is available in [tutorials/InDelsTopo_Tutorial.ipynb]
 It covers:
 1. Complexes: constructing, inspecting, and visualizing.
 2. Filtrations: heights, sublevel sets, and persistent homology.
