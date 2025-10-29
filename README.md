@@ -105,6 +105,9 @@ It covers:
 4. Manipulating complexes and filtrations: adding/removing blocks.
 5. Optional SageMath integration for homology over $\mathbb{Z}$.
 
+## Acknowledgements 
+This package was built under auspices of the Southeast Center for Mathematics and Biology, an NSF-Simons Research Center for Mathematics of Complex Biological Systems, under National Science Foundation Grant No. DMS-1764406 and Simons Foundation Grant No. 594594 as well as NSF DMS-2054321, CCF-2107267, CCF-2505771 and the W.M. Keck Foundation.  
+
 ## Citation
 If you use **InDelsTopo** in your research, please cite the following preprint:
 
