@@ -107,7 +107,7 @@ def _block_str_constructor(expression, alphabet=None, prod_symbol=None):
             # Check if we have an edge or not
             match_edge = re_edge.match(factor)
             # If we hit an edge, the current factor is the previous alpha.
-            if not match_edge is None:
+            if match_edge is not None:
                 x_factors.append(current_factor)
                 current_factor = 1
                 currently_at_alpha = False
@@ -182,13 +182,13 @@ class Block(ChainBlockBase):
 
         Args:
             expression (str, optional): String representation of the block.
-            _alphabet (Alphabet, optional): Alphabet defining the letters.
+            alphabet (Alphabet, optional): Alphabet defining the letters.
                 Defaults to an empty Alphabet.
-            _prod_symbol (str, optional): Product symbol to use ('', '*', or '.').
+            prod_symbol (str, optional): Product symbol to use ('', '*', or '.').
                 Inferred from the expression if None.
-            _x_factors (list of SymPy expressions or int, optional):
+            x_factors (list of SymPy expressions or int, optional):
                 Factors x_0, ..., x_k of the block.
-            _edges (list of SymPy symbols, optional): Edge symbols a_1, ..., a_k
+            edges (list of SymPy symbols, optional): Edge symbols a_1, ..., a_k
                 corresponding to the block.
         """
         super().__init__()  # initialize base class attributes
@@ -498,9 +498,13 @@ class Block(ChainBlockBase):
         # If maximal words are equal, descend through upper facets;
         # otherwise, through lower facets.
         if word1 == word2:
-            return any(self._le_recursive(facet) for facet in other_block.get_upper_facets())
+            return any(
+                self._le_recursive(facet) for facet in other_block.get_upper_facets()
+            )
         else:
-            return any(self._le_recursive(facet) for facet in other_block.get_lower_facets())
+            return any(
+                self._le_recursive(facet) for facet in other_block.get_lower_facets()
+            )
 
     def __le__(self, other_block):
         """

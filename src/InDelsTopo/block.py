@@ -182,13 +182,13 @@ class Block(ChainBlockBase):
 
         Args:
             expression (str, optional): String representation of the block.
-            _alphabet (Alphabet, optional): Alphabet defining the letters.
+            alphabet (Alphabet, optional): Alphabet defining the letters.
                 Defaults to an empty Alphabet.
-            _prod_symbol (str, optional): Product symbol to use ('', '*', or '.').
+            prod_symbol (str, optional): Product symbol to use ('', '*', or '.').
                 Inferred from the expression if None.
-            _x_factors (list of SymPy expressions or int, optional):
+            x_factors (list of SymPy expressions or int, optional):
                 Factors x_0, ..., x_k of the block.
-            _edges (list of SymPy symbols, optional): Edge symbols a_1, ..., a_k
+            edges (list of SymPy symbols, optional): Edge symbols a_1, ..., a_k
                 corresponding to the block.
         """
         super().__init__()  # initialize base class attributes
