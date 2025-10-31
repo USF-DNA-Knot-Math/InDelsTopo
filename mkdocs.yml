@@ -2,11 +2,35 @@ site_name: InDelsTopo
 site_url: https://github.com/USF-DNA-Knot-Math/InDelsTopo/
 theme: readthedocs
 
-
 plugins:
   - search
   - mkdocstrings
-
+      handlers:
+        python:
+          options:
+            show_source: false          # Hide source code blocks
+            show_signature: true        # Show function signatures
+            show_docstring_examples: true
+            show_if_no_docstring: false # Skip empty docstrings
+            show_root_toc_entry: false  # Don’t repeat the module title
+            docstring_style: google     # You can also use "numpy"
+            merge_init_into_class: true # Merge __init__ doc with class doc
+            members_order: source       # Keep original order
+            inherited_members: false    # Don’t show inherited members
+            filters: ["!^_"]            # Hide private members (starting with _)
+            
 nav:
   - Home: index.md
-  - InDelsTopo: reference.md
+  - InDelsTopo: reference.md            
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji
+  - pymdownx.tabbed
