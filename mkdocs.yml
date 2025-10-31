@@ -1,27 +1,42 @@
 site_name: InDelsTopo
 site_url: https://github.com/USF-DNA-Knot-Math/InDelsTopo/
-theme: readthedocs
+
+repo_url: https://github.com/USF-DNA-Knot-Math/InDelsTopo/
+repo_name: USF-DNA-Knot-Math/InDelsTopo
+
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - python
+    - yaml
 
 plugins:
   - search
   - mkdocstrings:
       handlers:
         python:
+          import:
+            - https://docs.python.org/3/objects.inv     # Cross-reference to Python stdlib
           options:
-            show_source: false          # Hide source code blocks
-            show_signature: true        # Show function signatures
-            show_docstring_examples: true
-            show_if_no_docstring: false # Skip empty docstrings
-            show_root_toc_entry: false  # Don’t repeat the module title
-            docstring_style: google     # You can also use "numpy"
-            merge_init_into_class: true # Merge __init__ doc with class doc
-            members_order: source       # Keep original order
-            inherited_members: false    # Don’t show inherited members
-            filters: ["!^_"]            # Hide private members (starting with _)
-            
+            docstring_style: numpy                     # Support "Attributes" and "Internal Attributes"
+            show_source: false                         # Hide source code blocks
+            show_signature: true                       # Show function/method signatures
+            show_if_no_docstring: false                # Skip undocumented members
+            show_root_toc_entry: false                 # Don’t repeat module name
+            merge_init_into_class: true                # Merge __init__ doc into class doc
+            members_order: source                      # Keep definition order
+            inherited_members: false                   # Hide inherited methods
+            filters:                                   # Hide unwanted or private members
+              - "!^_"
+              - "!^__version__$"
+              - "!^__all__$"
+              - "!^__author__$"
+              - "!^__email__$"
+
 nav:
   - Home: index.md
-  - InDelsTopo: reference.md            
+  - API Reference: reference.md
 
 markdown_extensions:
   - admonition
@@ -34,3 +49,13 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.emoji
   - pymdownx.tabbed
+  - pymdownx.magiclink
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/USF-DNA-Knot-Math/InDelsTopo
