@@ -1,4 +1,4 @@
-# InDelsTopo API Reference
+# Python package docs
 
 ::: InDelsTopo
     options:
