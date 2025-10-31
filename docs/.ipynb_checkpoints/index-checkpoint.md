@@ -91,16 +91,12 @@ Please open an issue on the [GitHub repository](https://github.com/USF-DNA-Knot-
 ## License
 
 This project is licensed under the **MIT License**.  
-See the [LICENSE](LICENSE.txt) file for details.
+See the [LICENSE](https://github.com/USF-DNA-Knot-Math/InDelsTopo/blob/main/LICENSE.txt) file for details.
 
 ---
 
 ## Acknowledgements
 
-This project was developed at the **University of South Florida**, in collaboration with  
-**Prof. Natasha Jonoska** and **Prof. Masahico Saito** (University of South Florida),  
-and insights from experimental data provided by **Prof. Francesca Storici’s lab** (Georgia Tech).
+This project was developed at the **University of South Florida**, in collaboration with **Prof. Natasha Jonoska** and **Prof. Masahico Saito** (University of South Florida), and insights from experimental data provided by **Prof. Francesca Storici’s lab** (Georgia Tech).
 
----
-*© 2025 University of South Florida*
-
+This package was built under auspices of the Southeast Center for Mathematics and Biology, an NSF-Simons Research Center for Mathematics of Complex Biological Systems, under National Science Foundation Grant No. DMS-1764406 and Simons Foundation Grant No. 594594 as well as NSF DMS-2054321, CCF-2107267, CCF-2505771 and the W.M. Keck Foundation.

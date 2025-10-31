@@ -78,8 +78,7 @@ def _convert_words_to_blocks(words, prod_symbol=None, alphabet=None):
         print("Product symbol set to " + prod_symbol_message)
 
     words = [re.sub("\\s+", "", w) for w in words]
-    blocks = [Block(w, alphabet=alphabet, prod_symbol=prod_symbol)
-              for w in words]
+    blocks = [Block(w, alphabet=alphabet, prod_symbol=prod_symbol) for w in words]
 
     return blocks, alphabet, prod_symbol
 
@@ -155,8 +154,6 @@ class Filtration:
         dim (int): Maximum dimension of the filtration.
         filtration_dict (dict): Maps dimension d to a dictionary of blocks and their heights.
         filtration_values (list): Sorted list of heights used in the filtration.
-
-    Internal Attributes:
         _alphabet (Alphabet): Alphabet containing all symbols in W.
         _prod_symbol (str): Product symbol used for constructing blocks
             ('*', '.', or '' for concatenation).
@@ -168,12 +165,14 @@ class Filtration:
         - Blocks can be added or removed by using the methods `add_blocks` and `remove_blocks`.
 
     Example:
+    ```python
     >>> W = ["ab", "aab", "abb"]
     >>> heights = [0.1, 0.3, 0.5]
     >>> K = Filtration() # Creates an empty complex
     >>> K.compute_d_skeleton(W, heights, max_dim=5) # makes K = a filtration of C[W]
     >>> K[1]  # Access 1-dimensional blocks and their heights
     {a(1,a)b: 0.3, ab(1,b): 0.5}
+    ```
     """
 
     def __init__(self, alphabet=None, prod_symbol=None):
@@ -247,22 +246,19 @@ class Filtration:
         for i in indices:
             if which in ["all", "upper"]:
                 block_exp = sym.prod(
-                    upper_factors[:i] + [factors[i]] + upper_factors[i + 1:],
+                    upper_factors[:i] + [factors[i]] + upper_factors[i + 1 :],
                     start=int(1),
                 )
-                block = Block(str(block_exp), prod_symbol="*",
-                              alphabet=self._alphabet)
+                block = Block(str(block_exp), prod_symbol="*", alphabet=self._alphabet)
                 # Fix prod_symbol pylint: disable=protected-access
                 block._prod_symbol = self._prod_symbol
                 upper_facets.append(block)
             if which in ["all", "lower"]:
                 block_exp = sym.prod(
-                    upper_factors[:i] + [lower_factors[i]] +
-                    upper_factors[i + 1:],
+                    upper_factors[:i] + [lower_factors[i]] + upper_factors[i + 1 :],
                     start=int(1),
                 )
-                block = Block(str(block_exp), prod_symbol="*",
-                              alphabet=self._alphabet)
+                block = Block(str(block_exp), prod_symbol="*", alphabet=self._alphabet)
                 lower_facets.append(block)
                 # Fix prod_symbol pylint: disable=protected-access
                 block._prod_symbol = self._prod_symbol
@@ -384,13 +380,12 @@ class Filtration:
 
             # Compute maximal word
             w_max = sym.prod(
-                factors[:i] + [lower_factors[i]] + factors[i + 1:], start=int(1)
+                factors[:i] + [lower_factors[i]] + factors[i + 1 :], start=int(1)
             )
 
             # Compute the new indices
             new_indices = [
-                _compute_new_index_lower_facet(
-                    j, i, exp_i, base_before, base_after)
+                _compute_new_index_lower_facet(j, i, exp_i, base_before, base_after)
                 for j in indices
                 if i != j
             ]
@@ -429,7 +424,7 @@ class Filtration:
         for j, pair in enumerate(word1_extended):
             if (
                 word2_extended_extra
-                == word1_extended_extra[:i] + word1_extended_extra[i + 1:]
+                == word1_extended_extra[:i] + word1_extended_extra[i + 1 :]
             ):
                 return True, self._block_maximal_word(word1, [j], True), j
             i += pair[1]
@@ -466,8 +461,7 @@ class Filtration:
         if alphabet is None:
             alphabet = self._alphabet
         elif not isinstance(alphabet, Alphabet):
-            raise ValueError(
-                "alphabet must be a valid Alphabet object or None")
+            raise ValueError("alphabet must be a valid Alphabet object or None")
         elif isinstance(self._alphabet, Alphabet):
             alphabet.update_letters(self._alphabet.letters_str)
 
@@ -501,9 +495,8 @@ class Filtration:
         self.filtration_dict[1] = dict()
         self._incidence_dict[1] = dict()
         list_vertices.sort(
-            key=lambda x: _expand_symp_word(
-                x.get_expression())[1],
-            reverse=True)
+            key=lambda x: _expand_symp_word(x.get_expression())[1], reverse=True
+        )
         list_expanded_vertices = [
             _expand_symp_word(x.get_expression()) for x in list_vertices
         ]
@@ -574,11 +567,13 @@ class Filtration:
             verbose (bool, optional): If True, prints progress information during computation.
 
         Example:
-            >>> W = ['a*b', 'a*b*b', 'a*a*b','']
-            >>> K = Filtration()
-            >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
-            >>> K[1]
-            {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```python
+        >>> W = ['a*b', 'a*b*b', 'a*a*b','']
+        >>> K = Filtration()
+        >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
+        >>> K[1]
+        {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```
         """
         if heights is None:
             heights = [1] * len(W)
@@ -624,7 +619,8 @@ class Filtration:
 
                 for k_indices in possible_indices:
                     lower_facets_pairs = self._lower_facets_maximal_word_as_pairs(
-                        word, k_indices, True)
+                        word, k_indices, True
+                    )
 
                     # Check if lower_facets are all there
                     all_facets_bool = True
@@ -649,8 +645,7 @@ class Filtration:
                             word, k_indices, which="all", casted=True
                         )
                         height = max(
-                            [self.filtration_dict[dim - 1][blk]
-                                for blk in facets]
+                            [self.filtration_dict[dim - 1][blk] for blk in facets]
                         )
 
                         block = self._block_maximal_word(word, k_indices, True)
@@ -666,12 +661,13 @@ class Filtration:
         del self._incidence_dict
 
     def add_blocks(
-            self,
-            list_blocks,
-            list_heights=None,
-            prod_symbol=None,
-            already_blocks=False,
-            update_values=False):
+        self,
+        list_blocks,
+        list_heights=None,
+        prod_symbol=None,
+        already_blocks=False,
+        update_values=False,
+    ):
         """
         Add new blocks to the Filtration.
 
@@ -746,8 +742,7 @@ class Filtration:
         self._alphabet = alphabet
 
         # Uniformalize prod_symbols pylint: disable=protected-access
-        new_prods = [blk._prod_symbol for blk in list_blocks] + \
-            [self._prod_symbol]
+        new_prods = [blk._prod_symbol for blk in list_blocks] + [self._prod_symbol]
         if "*" in new_prods:
             prod_symbol = "*"
         elif "." in new_prods:
@@ -763,8 +758,7 @@ class Filtration:
         elif isinstance(list_heights, list):
             # Check lengths agree
             if len(list_blocks) != len(list_heights):
-                raise ValueError(
-                    "list_heights must be same length as list_blocks")
+                raise ValueError("list_heights must be same length as list_blocks")
         else:
             try:
                 height = float(list_heights)
@@ -800,8 +794,7 @@ class Filtration:
                 elif update_values:
                     # Keep the lowest (earliest) height to preserve filtration
                     # order
-                    self.filtration_dict[f_dim][face] = min(
-                        current_height, height)
+                    self.filtration_dict[f_dim][face] = min(current_height, height)
 
         # Recompute dimension
         self.dim = max(self.filtration_dict, default=-1)
@@ -810,8 +803,9 @@ class Filtration:
         for dim in range(1, self.dim + 1):
             for block in self.filtration_dict[dim]:
                 facets = block.get_all_facets()
-                all_heights = [self.filtration_dict[dim][block]] +\
-                    [self.filtration_dict[dim - 1][facet] for facet in facets]
+                all_heights = [self.filtration_dict[dim][block]] + [
+                    self.filtration_dict[dim - 1][facet] for facet in facets
+                ]
                 new_height = max(all_heights)
                 self.filtration_dict[dim][block] = new_height
 
@@ -821,11 +815,8 @@ class Filtration:
         self.filtration_values.sort()
 
     def remove_blocks(
-            self,
-            list_blocks,
-            prod_symbol=None,
-            include_upfaces=True,
-            already_blocks=False):
+        self, list_blocks, prod_symbol=None, include_upfaces=True, already_blocks=False
+    ):
         """
         Remove blocks from the Filtration.
 
@@ -861,7 +852,10 @@ class Filtration:
         # Dictionary of blocks to remove
         blocks_to_remove = {i: [] for i in range(self.dim + 1)}
         for block in list_blocks:
-            if block.dim in self.filtration_dict and block in self.filtration_dict[block.dim]:
+            if (
+                block.dim in self.filtration_dict
+                and block in self.filtration_dict[block.dim]
+            ):
                 blocks_to_remove[block.dim].append(block)
 
         # Find super-faces if needed
@@ -870,7 +864,8 @@ class Filtration:
                 for block in self.filtration_dict[dimension]:
                     facets = block.get_all_facets()
                     if any(
-                            facet in blocks_to_remove[dimension - 1] for facet in facets):
+                        facet in blocks_to_remove[dimension - 1] for facet in facets
+                    ):
                         blocks_to_remove[dimension].append(block)
 
         # Remove blocks
@@ -887,11 +882,13 @@ class Filtration:
                 break
 
         # Update filtration values
-        self.filtration_values = list({
-            val
-            for dimension_dict in self.filtration_dict.values()
-            for val in dimension_dict.values()
-        })
+        self.filtration_values = list(
+            {
+                val
+                for dimension_dict in self.filtration_dict.values()
+                for val in dimension_dict.values()
+            }
+        )
         self.filtration_values.sort()
 
         # Recompute dimension
@@ -910,10 +907,12 @@ class Filtration:
                 If None, the full dimension of the filtration is used.
 
         Returns:
-            Complex: A Complex object containing all blocks up to the specified
+            complex (Complex): A Complex object containing all blocks up to the specified
                 height and dimension.
         """
-        from InDelsTopo.complex import Complex  # pylint: disable=import-outside-toplevel
+        from InDelsTopo.complex import (
+            Complex,
+        )  # pylint: disable=import-outside-toplevel
 
         if height is None:
             height = max(self.filtration_values, default=np.inf)
@@ -959,8 +958,7 @@ class Filtration:
         if x_values is None:
             x_values = self.filtration_values
         x_values.sort()
-        y_values = [self.get_complex(h).euler_characteristic()
-                    for h in x_values]
+        y_values = [self.get_complex(h).euler_characteristic() for h in x_values]
         return x_values, y_values
 
     def get_persistent_homology_barcodes(
@@ -1014,8 +1012,7 @@ class Filtration:
             ordered_blocks += self[dimension]
         ordered_blocks.sort(key=lambda blk: (self[blk.dim][blk], blk.dim))
 
-        ordered_blocks_dict = {
-            ordered_blocks[i]: i for i in range(len(ordered_blocks))}
+        ordered_blocks_dict = {ordered_blocks[i]: i for i in range(len(ordered_blocks))}
         heights = [self[blk.dim][blk] for blk in ordered_blocks]
 
         # Construct the boundary matrix
@@ -1030,8 +1027,7 @@ class Filtration:
                 data.append(1)
 
         N = len(ordered_blocks)
-        boundary_matrix = csc_matrix(
-            (data, (rows, cols)), shape=(N, N)).tolil()
+        boundary_matrix = csc_matrix((data, (rows, cols)), shape=(N, N)).tolil()
 
         # Perform row reduction (we follow the algorithm from
         # https://arxiv.org/pdf/1506.08903)
@@ -1040,8 +1036,9 @@ class Filtration:
 
         if get_height_indices:
             barcodes_indices = {}
-            height_indices = {self.filtration_values[i]: i for i in range(
-                len(self.filtration_values))}
+            height_indices = {
+                self.filtration_values[i]: i for i in range(len(self.filtration_values))
+            }
 
         for j in range(N):
             col = boundary_matrix.getcol(j)
@@ -1090,8 +1087,7 @@ class Filtration:
                         barcodes_indices[dim] = []
                 barcodes[dim].append((birth, inf_value))
                 if get_height_indices:
-                    barcodes_indices[dim].append(
-                        (height_indices[birth], np.inf))
+                    barcodes_indices[dim].append((height_indices[birth], np.inf))
 
         if using_skeleton:
             if max_dim in barcodes:
@@ -1114,7 +1110,7 @@ class Filtration:
         fixed=None,
         recompute=False,
         colors_by_dim=None,
-        ax=None
+        ax=None,
     ):
         """
         Generate a graphical representation of the filtration up to a specified dimension.
@@ -1162,8 +1158,9 @@ class Filtration:
                         self._positions_dict[vertex] = initial_positions[vertex]
                 # Compute for all vertices
                 self._positions_dict = graphics.compute_vertex_positions(
-                    self, pos0=self._positions_dict, fixed=list(
-                        self._positions_dict.keys())
+                    self,
+                    pos0=self._positions_dict,
+                    fixed=list(self._positions_dict.keys()),
                 )
 
             # Get the positions
@@ -1183,7 +1180,7 @@ class Filtration:
             height=height,
             already_complex=False,
             colors_by_dim=colors_by_dim,
-            ax=ax
+            ax=ax,
         )
 
         return ax
@@ -1205,8 +1202,7 @@ class Filtration:
         to_print += "dimension: " + str(self.dim) + ".\n"
         to_print += "vertices: " + str(len(self[0])) + ".\n"
         to_print += (
-            "blocks: " + str(sum([len(self[k])
-                             for k in range(self.dim + 1)])) + "."
+            "blocks: " + str(sum([len(self[k]) for k in range(self.dim + 1)])) + "."
         )
         return to_print
 
@@ -1219,18 +1215,15 @@ class Filtration:
         return {}
 
     def get_alphabet(self):
-        """Returns the alphabet attribute. """
+        """Returns the alphabet attribute."""
         return self._alphabet
 
-    def get_block_height(
-            self,
-            block,
-            already_block=False):
+    def get_block_height(self, block, already_block=False):
         """
-        Returns the height of the block in the filtration or None if it is not in the filtration. 
+        Returns the height of the block in the filtration or None if it is not in the filtration.
 
         Args:
-            block (Block or string): A block to check its height. If `already_blocks` is False (default), 
+            block (Block or string): A block to check its height. If `already_blocks` is False (default),
             it is assumed to be a string representing the block. If True, it is assumed to be an
                 existing Block object.
             already_block (bool, optional): If True, `block`
@@ -1239,9 +1232,9 @@ class Filtration:
         """
         # Convert into blocks if needed
         if not already_block:
-            block=Block(block, prod_symbol=self._prod_symbol, alphabet=self._alphabet)
-        
-        dim=block.dim
+            block = Block(block, prod_symbol=self._prod_symbol, alphabet=self._alphabet)
+
+        dim = block.dim
         if block in self[dim]:
             return self[dim][block]
         return None

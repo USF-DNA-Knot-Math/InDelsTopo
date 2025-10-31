@@ -31,8 +31,6 @@ class Complex:
         complex_dict (dict[int, list[Block]]): Maps each dimension to its corresponding
             list of blocks.
         height (float | None): Height value associated with the complex.
-
-    Internal attributes:
         _alphabet (Alphabet): Alphabet object containing all symbols used in W.
         _prod_symbol (str): Product symbol used in the blocks.
         _positions_dict (dict | None): Stores vertex positions for graphical visualization.
@@ -48,11 +46,13 @@ class Complex:
 
 
     Example:
-        >>> W = ["ab", "aab", "abb"]
-        >>> K = Complex() # Creates an empty complex
-        >>> K.compute_d_skeleton(W) # makes K = C[W]
-        >>> K[1]  # Access 1-dimensional blocks
-        [a(1,a)b, ab(1,b)]
+    ```python
+    >>> W = ["ab", "aab", "abb"]
+    >>> K = Complex() # Creates an empty complex
+    >>> K.compute_d_skeleton(W) # makes K = C[W]
+    >>> K[1]  # Access 1-dimensional blocks
+    [a(1,a)b, ab(1,b)]
+    ```
     """
 
     def __init__(
@@ -131,11 +131,13 @@ class Complex:
             verbose (bool, optional): If True, prints progress information during computation.
 
         Example:
-            >>> W = ['a*b', 'a*b*b', 'a*a*b','']
-            >>> K = Filtration()
-            >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
-            >>> K[1]
-            {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```python
+        >>> W = ['a*b', 'a*b*b', 'a*a*b','']
+        >>> K = Filtration()
+        >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
+        >>> K[1]
+        {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```
         """
         K = Filtration()
         K.compute_d_skeleton(
@@ -148,9 +150,7 @@ class Complex:
             already_blocks=already_blocks,
             verbose=verbose,
         )
-        complex_dict = {
-            dim: list(K[dim].keys()) for dim in K.filtration_dict
-        }
+        complex_dict = {dim: list(K[dim].keys()) for dim in K.filtration_dict}
 
         self.complex_dict = complex_dict
         self.height = height
@@ -216,10 +216,7 @@ class Complex:
         if max_dim is None or max_dim >= self.dim:
             return self
 
-        complex_dict = {
-            dim: list(self.complex_dict[dim])
-            for dim in range(max_dim + 1)
-        }
+        complex_dict = {dim: list(self.complex_dict[dim]) for dim in range(max_dim + 1)}
         for dim in range(max_dim, -1, -1):
             if len(complex_dict[dim]) == 0:
                 del complex_dict[dim]
@@ -229,7 +226,8 @@ class Complex:
             alphabet=self._alphabet,
             prod_symbol=self._prod_symbol,
             complex_dict=complex_dict,
-            height=self.height)
+            height=self.height,
+        )
 
     def add_blocks(self, list_blocks, prod_symbol=None, already_blocks=False):
         """
@@ -270,8 +268,7 @@ class Complex:
         self._alphabet = alphabet
 
         # Uniformalize prod_symbols pylint: disable=protected-access
-        new_prods = [blk._prod_symbol for blk in list_blocks] + \
-            [self._prod_symbol]
+        new_prods = [blk._prod_symbol for blk in list_blocks] + [self._prod_symbol]
         if "*" in new_prods:
             prod_symbol = "*"
         elif "." in new_prods:
@@ -334,17 +331,19 @@ class Complex:
             )
 
         # Dictionary of blocks to remove
-        blocks_to_remove = {i: [] for i in range(self.dim+1)}
+        blocks_to_remove = {i: [] for i in range(self.dim + 1)}
         for block in list_blocks:
             if block.dim in self.complex_dict and block in self.complex_dict[block.dim]:
                 blocks_to_remove[block.dim].append(block)
 
         # Find super-faces if needed
         if include_upfaces:
-            for dimension in range(1, self.dim+1):
+            for dimension in range(1, self.dim + 1):
                 for block in self.complex_dict[dimension]:
                     facets = block.get_all_facets()
-                    if any(facet in blocks_to_remove[dimension-1] for facet in facets):
+                    if any(
+                        facet in blocks_to_remove[dimension - 1] for facet in facets
+                    ):
                         blocks_to_remove[dimension].append(block)
 
         # Remove blocks
@@ -385,7 +384,7 @@ class Complex:
         fixed=None,
         recompute=False,
         colors_by_dim=None,
-        ax=None
+        ax=None,
     ):
         """
         Generate a graphical representation of the complex up to a specified dimension.
@@ -409,7 +408,7 @@ class Complex:
                 If None, defaults to ['black', 'gray', 'yellow', 'red', 'blue', 'purple'].
             ax (matplotlib.axes._subplots.Axes3DSubplot, optional): A Matplotlib Axes
                 object to draw the plot on. If None, a new figure and axes are created.
-                Defaults to None. 
+                Defaults to None.
 
         Returns:
             matplotlib.axes.Axes: Matplotlib axes object containing the drawn graph.
@@ -429,23 +428,24 @@ class Complex:
                         self._positions_dict[vertex] = initial_positions[vertex]
                 # Compute for all vertices
                 self._positions_dict = graphics.compute_vertex_positions(
-                    self, pos0=self._positions_dict, fixed=list(
-                        self._positions_dict.keys())
+                    self,
+                    pos0=self._positions_dict,
+                    fixed=list(self._positions_dict.keys()),
                 )
 
             # Get the positions
             positions = self._positions_dict
 
             ax = graphics.make_graph(
-            self,
-            pos =  positions,
-            show_labels = show_labels,
-            max_dim = max_dim,
-            height = None,
-            already_complex = True,
-            colors_by_dim = colors_by_dim,
-            ax = ax
-        )
+                self,
+                pos=positions,
+                show_labels=show_labels,
+                max_dim=max_dim,
+                height=None,
+                already_complex=True,
+                colors_by_dim=colors_by_dim,
+                ax=ax,
+            )
 
         return ax
 
@@ -472,8 +472,7 @@ class Complex:
             ordered_blocks += self[d]
         ordered_blocks.sort(key=lambda B: B.dim)
 
-        ordered_blocks_dict = {
-            ordered_blocks[i]: i for i in range(len(ordered_blocks))}
+        ordered_blocks_dict = {ordered_blocks[i]: i for i in range(len(ordered_blocks))}
 
         # Construct the boundary matrix
         cols = []
@@ -487,8 +486,7 @@ class Complex:
                 data.append(1)
 
         N = len(ordered_blocks)
-        boundary_matrix = csc_matrix(
-            (data, (rows, cols)), shape=(N, N)).tolil()
+        boundary_matrix = csc_matrix((data, (rows, cols)), shape=(N, N)).tolil()
 
         # Perform row reduction (we follow the algorithm from https://arxiv.org/pdf/1506.08903)
         low = []  # maps row index to pivot column index
@@ -568,7 +566,9 @@ class Complex:
             print(f"An error occurred: {e}")
             return None
 
-    def get_homology_sage(self, save_chain_complex=False, used_saved_chain_complex=True, **kwargs):
+    def get_homology_sage(
+        self, save_chain_complex=False, used_saved_chain_complex=True, **kwargs
+    ):
         """
         Return the homology of the associated chain complex using SageMath.
 
@@ -602,8 +602,7 @@ class Complex:
         to_print += "dimension: " + str(self.dim) + ".\n"
         to_print += "vertices: " + str(len(self[0])) + ".\n"
         to_print += (
-            "blocks: " + str(sum([len(self[k])
-                             for k in range(self.dim + 1)])) + "."
+            "blocks: " + str(sum([len(self[k]) for k in range(self.dim + 1)])) + "."
         )
         return to_print
 
@@ -611,5 +610,5 @@ class Complex:
         return self.__str__()
 
     def get_alphabet(self):
-        """Returns the alphabet attribute. """
+        """Returns the alphabet attribute."""
         return self._alphabet

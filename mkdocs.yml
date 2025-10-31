@@ -44,12 +44,13 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          import:
+          inventories:
             - https://docs.python.org/3/objects.inv   # Link to Python stdlib
           options:
-            docstring_style: numpy                   # Recognize Attributes/Internal Attributes
+            docstring_style: google                   # Recognize Attributes/Internal Attributes
             show_source: false                       # Hide source code
-            show_signature: true                     # Show function signatures
+            show_signature: false                     # Show function signatures
+            show_docstring_examples: true
             show_if_no_docstring: false
             show_root_toc_entry: false
             merge_init_into_class: true
@@ -57,10 +58,8 @@ plugins:
             inherited_members: false
             filters:
               - "!^_"
-              - "!^__version__$"
-              - "!^__all__$"
-              - "!^__author__$"
-              - "!^__email__$"
+            docstring_options:
+             trim_doctest_flags: false
 
 nav:
   - Home: index.md
@@ -94,5 +93,4 @@ extra:
   generator: false
 
 copyright: >
-  © 2025 USF DNA-Knot Math Group — Documentation built with
-  <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a>.
+  Documentation built with <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a>.

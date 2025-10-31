@@ -1,6 +1,6 @@
-# InDelsTopo API Reference
+# Python package docs
 
-:: InDelsTopo
+::: InDelsTopo
     options:
       show_root_toc_entry: true
       members: true

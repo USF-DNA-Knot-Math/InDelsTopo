@@ -154,8 +154,6 @@ class Filtration:
         dim (int): Maximum dimension of the filtration.
         filtration_dict (dict): Maps dimension d to a dictionary of blocks and their heights.
         filtration_values (list): Sorted list of heights used in the filtration.
-
-    Internal Attributes:
         _alphabet (Alphabet): Alphabet containing all symbols in W.
         _prod_symbol (str): Product symbol used for constructing blocks
             ('*', '.', or '' for concatenation).
@@ -167,12 +165,14 @@ class Filtration:
         - Blocks can be added or removed by using the methods `add_blocks` and `remove_blocks`.
 
     Example:
+    ```python
     >>> W = ["ab", "aab", "abb"]
     >>> heights = [0.1, 0.3, 0.5]
     >>> K = Filtration() # Creates an empty complex
     >>> K.compute_d_skeleton(W, heights, max_dim=5) # makes K = a filtration of C[W]
     >>> K[1]  # Access 1-dimensional blocks and their heights
     {a(1,a)b: 0.3, ab(1,b): 0.5}
+    ```
     """
 
     def __init__(self, alphabet=None, prod_symbol=None):
@@ -567,11 +567,13 @@ class Filtration:
             verbose (bool, optional): If True, prints progress information during computation.
 
         Example:
-            >>> W = ['a*b', 'a*b*b', 'a*a*b','']
-            >>> K = Filtration()
-            >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
-            >>> K[1]
-            {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```python
+        >>> W = ['a*b', 'a*b*b', 'a*a*b','']
+        >>> K = Filtration()
+        >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
+        >>> K[1]
+        {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```
         """
         if heights is None:
             heights = [1] * len(W)
@@ -905,7 +907,7 @@ class Filtration:
                 If None, the full dimension of the filtration is used.
 
         Returns:
-            Complex: A Complex object containing all blocks up to the specified
+            complex (Complex): A Complex object containing all blocks up to the specified
                 height and dimension.
         """
         from InDelsTopo.complex import (

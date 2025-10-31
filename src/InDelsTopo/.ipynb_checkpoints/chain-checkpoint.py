@@ -156,8 +156,6 @@ class Chain(ChainBlockBase):
 
     Attributes:
         dim (int): Maximum dimension among the blocks in the chain, or -1 if empty.
-
-    Internal_attributes:
         _expression(SymPy expression): represents the chain as a sum of block expressions.
         _alphabet (Alphabet): The Alphabet instance used for all blocks in the chain.
         _dict_blocks (dict): (for internal use only)
@@ -207,7 +205,7 @@ class Chain(ChainBlockBase):
         alphabet = Alphabet([]) if alphabet is None else alphabet
 
         # If dict_blocks provided use that one
-        if not dict_blocks is None:
+        if dict_blocks is not None:
             # Check all keys are instances of Block
             if not all(isinstance(b, Block) for b in dict_blocks.keys()):
                 raise TypeError("All keys of dict_blocks must be instances of Block")
@@ -231,7 +229,8 @@ class Chain(ChainBlockBase):
             else:
                 self._prod_symbol = ""
 
-        # Otherwise, if expression is present, or list_coeff, list_blocks are present, use that.
+        # Otherwise, if expression is present, or list_coeff, list_blocks are
+        # present, use that.
         else:
             if isinstance(expression, str):
                 list_coeffs, list_blocks, alphabet, prod_symbol = (
@@ -279,7 +278,7 @@ class Chain(ChainBlockBase):
             # Create dictionary
             self._dict_blocks = {}
             for i, block in enumerate(list_blocks):
-                if not block in self._dict_blocks:
+                if block not in self._dict_blocks:
                     self._dict_blocks[block] = list_coeffs[i]
                 else:
                     self._dict_blocks[block] += list_coeffs[i]

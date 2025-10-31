@@ -91,7 +91,7 @@ Please open an issue on the [GitHub repository](https://github.com/USF-DNA-Knot-
 ## License
 
 This project is licensed under the **MIT License**.  
-See the [LICENSE](LICENSE.txt) file for details.
+See the [LICENSE](https://github.com/USF-DNA-Knot-Math/InDelsTopo/blob/main/LICENSE.txt) file for details.
 
 ---
 

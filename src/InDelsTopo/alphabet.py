@@ -108,7 +108,7 @@ class Alphabet:
                 any new letters found in the word. Defaults to True.
 
         Returns:
-            sympy.Expr: SymPy expression of the word, using the symbols in this alphabet.
+            expression (sym.Expr): SymPy expression of the word, using the symbols in this alphabet.
         """
         if check_letters:
             self.update_letters(word)

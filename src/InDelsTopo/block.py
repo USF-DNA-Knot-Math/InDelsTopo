@@ -152,12 +152,10 @@ class Block(ChainBlockBase):
         dim (int): Number of edges (dimension) of the block.
         max_word (SymPy expression): Maximal word of the block.
         min_word (SymPy expression): Minimal word of the block.
-
-    Internal Attributes:
-        _x_factors (list of SymPy expressions or int): Factors of the block.
-        _edges (list of SymPy symbols): Symbols forming the edges of the block.
-        _alphabet (Alphabet): Alphabet used for letters in the block.
-        _expression (SymPy expression): SymPy product representing the block.
+        # _x_factors (list of SymPy expressions or int): Factors of the block.
+        # _edges (list of SymPy symbols): Symbols forming the edges of the block.
+        # _alphabet (Alphabet): Alphabet used for letters in the block.
+        # _expression (SymPy expression): SymPy product representing the block.
     """
 
     def __init__(
@@ -299,8 +297,8 @@ class Block(ChainBlockBase):
             indices_minus (list of int): Indices in {1,..., m} of edges (1, a_i) collapsed to 1.
 
         Returns:
-            Block: The resulting face block σ(indices_plus, indices_minus) if valid,
-            or the zero Block, otherwise.
+            face (Block): The resulting face block σ(indices_plus, indices_minus) if valid, 
+                or the zero Block, otherwise.
         """
         indices_all = indices_plus + indices_minus
 
@@ -341,7 +339,7 @@ class Block(ChainBlockBase):
         for i = 1, ..., m, where m is the dimension of the block.
 
         Returns:
-            list of Block: A list of Blocks representing the upper facets of the block.
+            upper_facets (list[Block]): A list of Blocks representing the upper facets of the block.
         """
         upper_facets = [self.get_face([i], []) for i in range(1, self.dim + 1)]
         return upper_facets

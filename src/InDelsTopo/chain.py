@@ -156,8 +156,6 @@ class Chain(ChainBlockBase):
 
     Attributes:
         dim (int): Maximum dimension among the blocks in the chain, or -1 if empty.
-
-    Internal_attributes:
         _expression(SymPy expression): represents the chain as a sum of block expressions.
         _alphabet (Alphabet): The Alphabet instance used for all blocks in the chain.
         _dict_blocks (dict): (for internal use only)

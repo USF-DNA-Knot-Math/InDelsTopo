@@ -31,8 +31,6 @@ class Complex:
         complex_dict (dict[int, list[Block]]): Maps each dimension to its corresponding
             list of blocks.
         height (float | None): Height value associated with the complex.
-
-    Internal attributes:
         _alphabet (Alphabet): Alphabet object containing all symbols used in W.
         _prod_symbol (str): Product symbol used in the blocks.
         _positions_dict (dict | None): Stores vertex positions for graphical visualization.
@@ -48,11 +46,13 @@ class Complex:
 
 
     Example:
-        >>> W = ["ab", "aab", "abb"]
-        >>> K = Complex() # Creates an empty complex
-        >>> K.compute_d_skeleton(W) # makes K = C[W]
-        >>> K[1]  # Access 1-dimensional blocks
-        [a(1,a)b, ab(1,b)]
+    ```python
+    >>> W = ["ab", "aab", "abb"]
+    >>> K = Complex() # Creates an empty complex
+    >>> K.compute_d_skeleton(W) # makes K = C[W]
+    >>> K[1]  # Access 1-dimensional blocks
+    [a(1,a)b, ab(1,b)]
+    ```
     """
 
     def __init__(
@@ -131,11 +131,13 @@ class Complex:
             verbose (bool, optional): If True, prints progress information during computation.
 
         Example:
-            >>> W = ['a*b', 'a*b*b', 'a*a*b','']
-            >>> K = Filtration()
-            >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
-            >>> K[1]
-            {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```python
+        >>> W = ['a*b', 'a*b*b', 'a*a*b','']
+        >>> K = Filtration()
+        >>> K.compute_d_skeleton(W, heights=[0.1, 0.3, 0.2,0.4], max_dim=2)
+        >>> K[1]
+        {a*b*(1,b): 0.3, a*(1,a)*b: 0.2}
+        ```
         """
         K = Filtration()
         K.compute_d_skeleton(

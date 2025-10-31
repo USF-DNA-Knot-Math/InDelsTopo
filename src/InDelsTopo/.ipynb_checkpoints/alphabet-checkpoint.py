@@ -1,10 +1,11 @@
 """Module for the Alphabet class and related helper functions."""
-#Third party imports
+
+# Third party imports
 import sympy as sym
 
 
-#Alphabet Class
-class Alphabet():
+# Alphabet Class
+class Alphabet:
     """
     Represents an alphabet of symbols used to build words.
 
@@ -24,6 +25,7 @@ class Alphabet():
         edges (dict): Maps letter strings to their corresponding edge (1-block) symbols.
         letters_str (list): List of letter strings currently in the alphabet.
     """
+
     def __init__(self, letters_str=None):
         """
         Initialize an Alphabet with optional letters.
@@ -38,18 +40,18 @@ class Alphabet():
                 - edges (dict): Maps letter strings to corresponding edge symbols.
                 - letters_str (list): List of unique letter strings in the alphabet.
         """
-        letters={}
-        edges={}
+        letters = {}
+        edges = {}
         letters_str = list(set(letters_str)) if letters_str is not None else []
         for symbol in letters_str:
-            letters[symbol]=sym.Symbol(symbol,commutative=False)
-            edges[symbol]=sym.Symbol('(1,_)'.replace('_',symbol), commutative=False)
+            letters[symbol] = sym.Symbol(symbol, commutative=False)
+            edges[symbol] = sym.Symbol("(1,_)".replace("_", symbol), commutative=False)
 
-        self.letters=letters
-        self._edges=edges
-        self.letters_str=letters_str
+        self.letters = letters
+        self._edges = edges
+        self.letters_str = letters_str
 
-    def get(self,letter, dim=0):
+    def get(self, letter, dim=0):
         """
         Return the symbolic representation of a letter or its edge.
 
@@ -61,36 +63,40 @@ class Alphabet():
         Returns:
             SymPy.Symbol: The corresponding SymPy symbol.
         """
-        if dim==0:
+        if dim == 0:
             return self.letters[letter]
-        if dim==1:
+        if dim == 1:
             return self._edges[letter]
         raise ValueError("Dimension dim must be 0 or 1.")
 
-    def add_letter(self,symbol):
+    def add_letter(self, symbol):
         """
         Add a new letter to the alphabet if it does not already exist.
 
         Args:
             symbol (str): The new letter to add.
         """
-        if not symbol in self.letters_str:
+        if symbol not in self.letters_str:
             self.letters_str.append(symbol)
-            self.letters[symbol]=sym.Symbol(symbol,commutative=False)
-            self._edges[symbol]=sym.Symbol('(1,_)'.replace('_',symbol), commutative=False)
+            self.letters[symbol] = sym.Symbol(symbol, commutative=False)
+            self._edges[symbol] = sym.Symbol(
+                "(1,_)".replace("_", symbol), commutative=False
+            )
 
-    def update_letters(self,letters_str):
+    def update_letters(self, letters_str):
         """
         Add multiple letters to the alphabet, ignoring duplicates.
 
         Args:
             letters_str (iterable of str): letters to add.
         """
-        new_letters=set(letters_str).difference(self.letters_str)
+        new_letters = set(letters_str).difference(self.letters_str)
         for symbol in new_letters:
             self.letters_str.append(symbol)
-            self.letters[symbol]=sym.Symbol(symbol,commutative=False)
-            self._edges[symbol]=sym.Symbol('(1,_)'.replace('_',symbol), commutative=False)
+            self.letters[symbol] = sym.Symbol(symbol, commutative=False)
+            self._edges[symbol] = sym.Symbol(
+                "(1,_)".replace("_", symbol), commutative=False
+            )
 
     def cast_word(self, word, check_letters=True):
         """
@@ -102,14 +108,14 @@ class Alphabet():
                 any new letters found in the word. Defaults to True.
 
         Returns:
-            sympy.Expr: SymPy expression of the word, using the symbols in this alphabet.
+            expression (sym.Expr): SymPy expression of the word, using the symbols in this alphabet.
         """
         if check_letters:
             self.update_letters(word)
-        return sym.prod([self.letters[symbol] for symbol in word],start=int(1))
+        return sym.prod([self.letters[symbol] for symbol in word], start=int(1))
 
     def __str__(self):
-        return 'Alphabet with letters: '+str(sorted(self.letters_str))
+        return "Alphabet with letters: " + str(sorted(self.letters_str))
 
     def __repr__(self):
         return self.__str__()
