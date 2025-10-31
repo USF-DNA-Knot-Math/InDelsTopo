@@ -5,11 +5,39 @@ repo_url: https://github.com/USF-DNA-Knot-Math/InDelsTopo/
 repo_name: USF-DNA-Knot-Math/InDelsTopo
 
 theme:
-  name: readthedocs
-  highlightjs: true
-  hljs_languages:
-    - python
-    - yaml
+  name: material
+  features:
+    - navigation.instant
+    - navigation.expand
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - search.highlight
+    - search.suggest
+    - toc.integrate
+    - content.code.annotate
+    - content.code.copy
+    - content.action.edit
+    - header.autohide
+    - content.tabs.link
+    - content.tooltips
+    - content.footnote.tooltips
+    - palette.toggle
+  palette:
+    - scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
 
 plugins:
   - search
@@ -17,17 +45,17 @@ plugins:
       handlers:
         python:
           import:
-            - https://docs.python.org/3/objects.inv     # Cross-reference to Python stdlib
+            - https://docs.python.org/3/objects.inv   # Link to Python stdlib
           options:
-            docstring_style: numpy                     # Support "Attributes" and "Internal Attributes"
-            show_source: false                         # Hide source code blocks
-            show_signature: true                       # Show function/method signatures
-            show_if_no_docstring: false                # Skip undocumented members
-            show_root_toc_entry: false                 # Don’t repeat module name
-            merge_init_into_class: true                # Merge __init__ doc into class doc
-            members_order: source                      # Keep definition order
-            inherited_members: false                   # Hide inherited methods
-            filters:                                   # Hide unwanted or private members
+            docstring_style: numpy                   # Recognize Attributes/Internal Attributes
+            show_source: false                       # Hide source code
+            show_signature: true                     # Show function signatures
+            show_if_no_docstring: false
+            show_root_toc_entry: false
+            merge_init_into_class: true
+            members_order: source
+            inherited_members: false
+            filters:
               - "!^_"
               - "!^__version__$"
               - "!^__all__$"
@@ -54,8 +82,17 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.arithmatex:
       generic: true
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
 
 extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/USF-DNA-Knot-Math/InDelsTopo
+  generator: false
+
+copyright: >
+  © 2025 USF DNA-Knot Math Group — Documentation built with
+  <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">Material for MkDocs</a>.
