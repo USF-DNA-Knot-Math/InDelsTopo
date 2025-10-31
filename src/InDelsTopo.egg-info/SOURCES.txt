@@ -17,3 +17,5 @@ src/InDelsTopo.egg-info/SOURCES.txt
 src/InDelsTopo.egg-info/dependency_links.txt
 src/InDelsTopo.egg-info/requires.txt
 src/InDelsTopo.egg-info/top_level.txt
+tutorials/InDelsTopo_Tutorial.ipynb
+tutorials/.ipynb_checkpoints/InDelsTopo_Tutorial-checkpoint.ipynb
