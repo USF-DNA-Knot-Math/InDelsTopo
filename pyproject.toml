@@ -65,7 +65,10 @@ dev = [
     "build",
     "twine",
 ]
-
+passagemath = [
+   "passagemath-modules",
+   "passagemath-repl",
+]
 
 [project.urls]
 Homepage = "https://github.com/USF-DNA-Knot-Math/InDelsTopo"
