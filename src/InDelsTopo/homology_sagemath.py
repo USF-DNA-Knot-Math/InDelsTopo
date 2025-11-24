@@ -5,6 +5,11 @@ This module requires SageMath to run and cannot be executed in a standard
 Python environment.
 """
 
+try:
+    import sage.all__sagemath_modules
+except ImportError:
+    import sage.all
+
 from sage.rings.integer_ring import ZZ                # pylint: disable=import-error
 from sage.homology.chain_complex import ChainComplex  # pylint: disable=import-error
 from sage.matrix.constructor import matrix            # pylint: disable=import-error
