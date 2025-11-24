@@ -5,7 +5,9 @@ This module requires SageMath to run and cannot be executed in a standard
 Python environment.
 """
 
-from sage.all import ZZ, ChainComplex, matrix  # pylint: disable=import-error
+from sage.rings.integer_ring import ZZ                # pylint: disable=import-error
+from sage.homology.chain_complex import ChainComplex  # pylint: disable=import-error
+from sage.matrix.constructor import matrix            # pylint: disable=import-error
 
 import numpy as np
 
