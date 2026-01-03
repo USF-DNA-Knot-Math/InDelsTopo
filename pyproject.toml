@@ -15,7 +15,7 @@ requires-python = ">=3.8"
 
 # Add or remove dependencies as needed
 dependencies = [
-    "numpy >= 1.20, <2.0",
+    "numpy >= 1.20",
     "networkx >= 3.0",
     "matplotlib >= 3.0",
     "sympy >= 1.9",
