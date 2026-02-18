@@ -41,3 +41,10 @@ env/
 # Ignore logs and temp files
 *.log
 *.tmp
+
+# Specific Files
+examples/Example2_Rloops/*
+!examples/Example2_Rloops/1_Preprocess_Data.ipynb
+!examples/Example2_Rloops/2_R_Loops_InDelsTopo_Analysis.ipynb
+
+examples/Example1_DNA_dsb_repair/2B_DNA_DSB_InDelsTopo_AvgAnalysis-Copy1.ipynb

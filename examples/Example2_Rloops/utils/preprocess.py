@@ -34,7 +34,7 @@ def read_subsequence(chrom, start, end, direction='+', folder_path_fasta=None, d
 
 # Build table around R-loop start
 # --------------------------
-def produce_table(bed_df, folder_path_fasta, dict_fast, max_window_size=10):
+def produce_table(bed_df, folder_path_fasta, dict_fast, max_window_size=10,location='start'):
     """
     Produce a DataFrame with sequences around R-loop start sites.
 
@@ -63,11 +63,18 @@ def produce_table(bed_df, folder_path_fasta, dict_fast, max_window_size=10):
         Table.columns = ['chrom', 'start', 'end']
     else:
         raise ValueError("Invalid direction")
-
-    # Windows around start
-    Table['window_start'] = (Table.start - max_window_size).clip(lower=0)
-    Table['window_end'] = (Table.start + max_window_size).clip(upper=N)
-
+        
+    if location=='start':
+        # Windows around start
+        Table['window_start'] = (Table.start - max_window_size).clip(lower=0)
+        Table['window_end'] = (Table.start + max_window_size).clip(upper=N)
+    elif location=='end':
+        # Windows around end
+        Table['window_start'] = (Table.end - max_window_size).clip(lower=0)
+        Table['window_end'] = (Table.end + max_window_size).clip(upper=N)
+    else:
+        raise ValueError("Location needs to be start or end")
+        
     # Read sequences
     Table['sequence_pre'] = Table.apply(
         lambda row: read_subsequence(row['chrom'], row['window_start'], row['start'],

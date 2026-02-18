@@ -35,9 +35,9 @@ def plot_euler_curves(exp_names, euler_curves, title=None):
 # --------------------------
 # t-SNE visualization
 # --------------------------
-def plot_tsne(exp_names, euler_curves, perplexity=2, random_state=13, figsize=(5,5), title=None):
+def plot_tsne(exp_names, euler_curves, perplexity=2, random_state=13, metric='cosine', figsize=(5,5), title=None):
     X = np.array([curve[1] for curve in euler_curves])
-    tSNE = TSNE(metric='euclidean', random_state=random_state, perplexity=perplexity, n_components=2)
+    tSNE = TSNE(metric=metric, random_state=random_state, perplexity=perplexity, n_components=2)
     Y = tSNE.fit_transform(X)
 
     plt.figure(figsize=figsize)
@@ -52,36 +52,6 @@ def plot_tsne(exp_names, euler_curves, perplexity=2, random_state=13, figsize=(5
         plt.title(title)
     plt.show()
 
-
-def plot_dendrogram(model, **kwargs):
-    """Plot dendrogram and recolor leaf labels."""
-    # count samples under each internal node
-    counts = np.zeros(model.children_.shape[0])
-    n_samples = len(model.labels_)
-
-    for i, merge in enumerate(model.children_):
-        counts[i] = sum(
-            1 if child < n_samples else counts[child - n_samples]
-            for child in merge
-        )
-
-    linkage_matrix = np.column_stack(
-        [model.children_, model.distances_, counts]
-    ).astype(float)
-
-    dendrogram(
-        linkage_matrix,
-        orientation='right',
-        color_threshold=0,
-        **kwargs
-    )
-
-    # recolor y-axis labels
-    ax = plt.gca()
-    for lbl in ax.get_ymajorticklabels():
-        lbl.set_color(get_color(lbl.get_text()))
-
-    plt.gcf().subplots_adjust(bottom=0.5)
 
 
 def plot_dendrogram(model, labels=None, **kwargs):
