@@ -555,11 +555,11 @@ class Complex:
             return homology_sagemath.create_chain_complex(
                 self.complex_dict, get_ordered_blocks
             )
-        except ImportError:
+        except ImportError as e:
             print(
                 "Could not find SageMath functions. "
                 "This module requires SageMath to run and cannot be "
-                "executed in a standard Python environment."
+                f"executed in a standard Python environment: {e}"
             )
             return None
         except Exception as e:
