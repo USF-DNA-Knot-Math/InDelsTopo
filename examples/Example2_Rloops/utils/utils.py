@@ -35,7 +35,7 @@ def plot_euler_curves(exp_names, euler_curves, title=None):
 # --------------------------
 # t-SNE visualization
 # --------------------------
-def plot_tsne(exp_names, euler_curves, perplexity=2, random_state=13, metric='cosine', figsize=(5,5), title=None):
+def plot_tsne(exp_names, euler_curves, perplexity=2, random_state=13, metric='euclidean', figsize=(5,5), title=None):
     X = np.array([curve[1] for curve in euler_curves])
     tSNE = TSNE(metric=metric, random_state=random_state, perplexity=perplexity, n_components=2)
     Y = tSNE.fit_transform(X)
