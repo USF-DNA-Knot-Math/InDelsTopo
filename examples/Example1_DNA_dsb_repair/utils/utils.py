@@ -2,6 +2,7 @@ from scipy.cluster.hierarchy import dendrogram
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
 import numpy as np
+import networkx as nx
 
 
 # --- Color / label helpers --------------------------------------------------
@@ -145,3 +146,62 @@ def plot_projection(X, labels, color='human', figsize=(10, 10), show_text=False)
 
 def safe_get(L, i, default=0):
     return L[i] if 0 <= i < len(L) else default
+
+def latex_sci(x):
+    if x == 0:
+        return ""
+    if not isinstance(x, (float)):
+        return x  
+    mantissa, exponent = f"{x:.2e}".split("e")
+    exponent = int(exponent)
+    
+    # If exponent is 0, just print the number normally
+    if exponent == 0:
+        return f"${float(mantissa):.2f}$"
+    
+    return f"${mantissa} \\times 10^{{{exponent}}}$"
+
+# --- Auxiliary method for connected component analysis -----------------------------
+def create_nx_graph(K):
+    """Transform the 1-skeleton of a Complex/Filtration into a networkx graph."""
+    edges = []
+    for e in K[1]:
+        v1, v2 = e.get_all_vertices(False)
+        edges.append((v1, v2)) 
+
+    graph = nx.Graph()
+    graph.add_nodes_from(K[0])
+    graph.add_edges_from(edges)
+
+    return graph
+
+
+# --- Format Table ---------
+def format_table(Table, get_color=get_color_human, gray_cols=None):
+    """Format the table for a nicer view.
+    
+    - Color experiments according to break site
+    - Format numbers in scientific notation with LaTeX
+    - Gray out specified columns
+    """
+    if gray_cols is None:
+        gray_cols = []
+
+    styler = Table.style.format(latex_sci)
+
+    # Color "Experiment" column
+    if "Experiment" in Table.columns:
+        styler = styler.applymap(
+            lambda v: f"color: {get_color(v)}",
+            subset=["Experiment"]
+        )
+
+    # Gray out selected columns
+    if gray_cols:
+        styler = styler.applymap(
+            lambda v: "color: gray",
+            subset=gray_cols
+        )
+
+    display(styler)
+
